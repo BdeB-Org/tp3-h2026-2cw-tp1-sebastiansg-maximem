@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Jeux - PixelVault</title>
+    <link rel="stylesheet" href="../css/commun.css">
+</head>
+
+<body>
+
+    <h1>Gestion des jeux</h1>
+
+    <a href="../index.html">Retour accueil</a>
+
+    <form id="formJeu">
+
+        <input type="number"
+               id="id_jeu"
+               placeholder="ID jeu"
+               required>
+
+        <input type="text"
+               id="titre"
+               placeholder="Titre"
+               required>
+
+        <input type="number"
+               id="annee_edition"
+               placeholder="Année édition">
+
+        <input type="number"
+               id="id_console"
+               placeholder="ID console">
+
+        <input type="number"
+               id="id_genre"
+               placeholder="ID genre">
+
+        <button type="submit">
+            Ajouter
+        </button>
+
+    </form>
+
+    <table>
+
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Titre</th>
+                <th>Année</th>
+                <th>ID console</th>
+                <th>ID genre</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+
+        <tbody id="tableJeux"></tbody>
+
+    </table>
+
+    <script src="../js/api.js"></script>
+    <script src="../js/jeux.js"></script>
+
+</body>
+
+</html>
