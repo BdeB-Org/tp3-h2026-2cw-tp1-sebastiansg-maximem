@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PixelVault - Accueil</title>
+    <link rel="icon" type="image/png" href="../images/PixelVault logo (icone).png">
+    <link rel="stylesheet" href="../css/commun.css" />
+</head>
+
+<body>
+    <!--Header-->
+    <header>
+        <!--Une div avec deux éléments distincts (img et nav). La div est là pour que le flex fonctionne. Le flex va voir qui'il y a deux éléments-->
+        <div class="header-container">
+            <a href="#">
+                <img src="../images/PixelVault logo 2.1.png" alt="Logo PixelVault" width="150px">
+            </a>
+            <nav class="navigation">
+                <!--Barre de navigation-->
+                <div class="rectangle1"><a href="#">Acceuil</a></div>
+                <div class="rectangle2"><a href="./collection.html">Collection</a></div>
+            </nav>
+        </div>
+    </header>
+
+    <main>
+        <!--Texte de la page d'acceuil + image-->
+        <div class="texte-acceuil">
+            <!--Une div avec deux éléments distincts (div et div). La div est là pour que le flex fonctionne. Le flex va voir qui'il y a deux éléments-->
+            <div>
+                <h1 style="margin-top: 0;">Bienvenue sur PixelVault</h1>
+                <p style="font-size: 17px;">
+                    Plongez dans l’univers du rétro-gaming avec PixelVault, la collection en ligne dédiée aux consoles
+                    et jeux qui ont marqué l’histoire. Explorez, découvrez et partagez les classiques qui ont façonné le
+                    monde du jeu vidéo.
+                </p>
+                <div style="height: 50px;"></div>
+                <nav>
+                    <a class="btn" href="./collection.html">Explorez la collection</a>
+                </nav>
+            </div>
+            <img src="../images/Image page d'acceuil 1.1.jpg" alt="Consoles rétro portables" width="500px"
+                class="img-acceuil">
+        </div>
+    </main>
+
+    <!--Logo consoles offertes-->
+    <section style="padding: 20px;">
+        <h2 style="margin: 30px;">Fabricants disponibles</h2>
+        <div class="logo_consoles1"></div>
+    </section>
+    <div style="height: 70px;"></div>
+
+    <footer>
+        <p>© 2026 PixelVault</p>
+    </footer>
+
+    <script src="../js/api.js"></script>
+    <script src="../js/index.js"></script>
+</body>
+
+</html>

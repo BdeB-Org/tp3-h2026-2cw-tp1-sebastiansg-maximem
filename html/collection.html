@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>PixelVault - Collection</title>
+    <link rel="icon" type="image/png" href="../images/PixelVault logo (icone).png" />
+    <link rel="stylesheet" href="../css/commun.css" />
+</head>
+
+<body>
+    <!--Header-->
+    <header>
+        <!--Une div avec deux éléments distincts (img et nav). La div est là pour que le flex fonctionne. Le flex va voir qui'il y a deux éléments-->
+        <div class="header-container">
+            <a href="./index.html">
+                <img src="../images/PixelVault logo 2.1.png" alt="Logo PixelVault" width="150px" />
+            </a>
+            <!--Barre de navigation-->
+            <nav class="navigation">
+                <div class="rectangle2" style="margin-right: 15px">
+                    <a href="./index.html">Acceuil</a>
+                </div>
+                <div class="rectangle1"><a href="#">Collection</a></div>
+            </nav>
+        </div>
+    </header>
+
+    <main class="contenu_main">
+        <h1 class="h_1">Collection - Fabricant</h1>
+        <section>
+            <h3>Choisissez votre fabricant</h3>
+            <div id="fabricants-container"></div>
+        </section>
+    </main>
+
+    <nav style="margin-left: 2rem;">
+        <a class="btn" href="./index.html">Retour à l'acceuil</a>
+    </nav>
+
+    <footer>
+        <p>© 2026 PixelVault</p>
+    </footer>
+
+    <script src="../js/api.js"></script>
+    <script src="../js/collection.js"></script>
+</body>
+
+</html>
