@@ -11,7 +11,6 @@
 <body>
     <!--Header-->
     <header>
-        <!--Une div avec deux éléments distincts (img et nav). La div est là pour que le flex fonctionne. Le flex va voir qui'il y a deux éléments-->
         <div class="header-container">
             <a href="./index.html">
                 <img src="../images/PixelVault logo 2.1.png" alt="Logo PixelVault" width="150px">
@@ -21,13 +20,14 @@
                 <div class="rectangle2" style="margin-right: 15px;"><a href="./index.html">Acceuil</a></div>
                 <div class="rectangle1"><a href="./collection.html">Collection</a></div>
             </nav>
+        </div>
     </header>
 
-    <!--Produit(s) qu'on peut acheter-->
+    <!--Détails du jeu sélectionné-->
     <main class="contenu_main">
         <h1 class="h_1">Collection - Exemplaire</h1>
         <section>
-            <h3>Choisissez le jeu de votre choix</h3>
+            <h3>Détails du jeu</h3>
             <div class="exemplaire">
                 <p style="margin-right: 20px;">
                     Jeu : <span id="info-titre"></span><br>
@@ -44,8 +44,9 @@
         </section>
     </main>
 
-    <nav style="margin-left: 2rem;">
-        <a class="btn" href="./collection-nintendo.html">Page précédente</a>
+    <!-- Le bouton "Page précédente" pointe vers collection-jeux.html avec le bon fabricant -->
+    <nav style="margin-left: 2rem;" id="nav-retour">
+        <!-- Rempli dynamiquement par le script ci-dessous -->
     </nav>
 
     <footer>
@@ -54,6 +55,24 @@
 
     <script src="../js/api.js"></script>
     <script src="../js/exemplaire.js"></script>
+    <script>
+        // Construit le lien "Page précédente" en réutilisant le paramètre "fabricant"
+        const params = new URLSearchParams(window.location.search);
+        const fabricant = params.get('fabricant');
+
+        const navRetour = document.getElementById('nav-retour');
+        const lienRetour = document.createElement('a');
+        lienRetour.classList.add('btn');
+        lienRetour.textContent = 'Page précédente';
+
+        if (fabricant) {
+            lienRetour.href = `./collection-jeux.html?fabricant=${encodeURIComponent(fabricant)}`;
+        } else {
+            lienRetour.href = './collection.html';
+        }
+
+        navRetour.appendChild(lienRetour);
+    </script>
 </body>
 
 </html>

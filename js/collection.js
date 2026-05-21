@@ -18,13 +18,6 @@ function chargerFabricantsCollection() {
             'nintendo': 4
         };
 
-        const pagesFabricants = {
-            'sony': 'collection-playstation.html',
-            'atari': 'collection-atari.html',
-            'sega': 'collection-sega.html',
-            'nintendo': 'collection-nintendo.html'
-        };
-
         fabricants.sort((a, b) => {
             const indexA = ordreDesire[a.nom_fabricant.toLowerCase()] || 99;
             const indexB = ordreDesire[b.nom_fabricant.toLowerCase()] || 99;
@@ -38,9 +31,6 @@ function chargerFabricantsCollection() {
 
         fabricants.forEach(fab => {
             const nomFabricant = fab.nom_fabricant;
-            const cleFabricant = nomFabricant.toLowerCase();
-            const page = pagesFabricants[cleFabricant];
-            if (!page) return;
 
             const li = document.createElement('li');
 
@@ -53,7 +43,8 @@ function chargerFabricantsCollection() {
             const btn = document.createElement('a');
             btn.textContent = 'Voir les jeux';
             btn.classList.add('btn');
-            btn.href = `./${page}`;
+            // Une seule page collection-jeux.html, le fabricant est passé en paramètre URL
+            btn.href = `./collection-jeux.html?fabricant=${encodeURIComponent(nomFabricant)}`;
 
             li.appendChild(nom);
             li.appendChild(espace);
@@ -68,22 +59,6 @@ function chargerFabricantsCollection() {
         conteneur.innerHTML = '<p>Erreur lors du chargement des fabricants.</p>';
     });
 }
-
-const pagesJeuxParFabricant = {
-    sony: {
-        'fifa: road to world cup 98': 'collection-ps-fifa.html',
-        'final fantasy vii': 'collection-ps-finalfantasy.html'
-    },
-    sega: {
-        'sonic the hedgehog': 'collection-sega-sonic.html'
-    },
-    nintendo: {
-        'super mario world': 'collection-nin-supermarioworld.html',
-        'the legend of zelda: a link to the past': 'collection-nin-zelda.html',
-        'street fighter ii': 'collection-nin-streetfighter.html',
-        'pit-fighter': 'collection-nin-pitfighter.html'
-    }
-};
 
 function normaliserCle(texte) {
     return (texte || '')
@@ -114,29 +89,35 @@ async function afficherCollection(nomFabricant) {
 
     conteneur.innerHTML = 'Chargement des jeux...';
 
+    // Met à jour le titre de la page dynamiquement
+    const titrePage = document.getElementById('titre-fabricant');
+    if (titrePage) titrePage.textContent = `Collection - ${nomFabricant}`;
+
     try {
         const [jeux, exemplaires] = await Promise.all([
             getJeuxParFabricant(nomFabricant),
             getAll('exemplaire')
         ]);
+
+        // Construit une Map : id_jeu → id_exemplaire
         const idExemplaireParJeu = new Map(
             (exemplaires || []).map(exemplaire => [
-                normaliserCle(exemplaire.id_jeu),
+                Number(exemplaire.id_jeu),
                 exemplaire.id_exemplaire
             ])
         );
-        const pagesDuFabricant = pagesJeuxParFabricant[normaliserCle(nomFabricant)] || {};
-        const jeuxAvecPage = (jeux || [])
+
+        // Associe chaque jeu à son id_exemplaire (si disponible)
+        const jeuxAvecExemplaire = (jeux || [])
             .map(jeu => ({
                 ...jeu,
-                page: pagesDuFabricant[normaliserCle(jeu.titre)],
-                id_exemplaire: idExemplaireParJeu.get(normaliserCle(jeu.id_jeu))
+                id_exemplaire: idExemplaireParJeu.get(Number(jeu.id_jeu))
             }))
-            .filter(jeu => Boolean(jeu.page) && Number.isInteger(Number(jeu.id_exemplaire)));
+            .filter(jeu => Number.isInteger(Number(jeu.id_exemplaire)));
 
         conteneur.innerHTML = '';
 
-        if (jeuxAvecPage.length === 0) {
+        if (jeuxAvecExemplaire.length === 0) {
             conteneur.appendChild(creerBlocAucunJeu());
             return;
         }
@@ -146,7 +127,7 @@ async function afficherCollection(nomFabricant) {
 
         const ul = document.createElement('ul');
 
-        jeuxAvecPage.forEach(jeu => {
+        jeuxAvecExemplaire.forEach(jeu => {
             const li = document.createElement('li');
 
             const nom = document.createElement('b');
@@ -158,7 +139,9 @@ async function afficherCollection(nomFabricant) {
             const btn = document.createElement('a');
             btn.textContent = "Plus d'informations";
             btn.classList.add('btn');
-            btn.href = `./${jeu.page}?id_exemplaire=${encodeURIComponent(jeu.id_exemplaire)}`;
+            // Une seule page collection-exemplaire.html
+            // On passe l'id_exemplaire ET le fabricant pour le bouton "Page précédente"
+            btn.href = `./collection-exemplaire.html?id_exemplaire=${encodeURIComponent(jeu.id_exemplaire)}&fabricant=${encodeURIComponent(nomFabricant)}`;
 
             li.appendChild(nom);
             li.appendChild(espace);

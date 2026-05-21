@@ -31,8 +31,10 @@ async function afficherDetails() {
     if (details) {
         // Injection des données dans les balises <span> vides
         document.getElementById('info-titre').textContent = details.titre;
-        // Si tu as la date de sortie de la console dans ta requête, tu peux l'ajouter ici
-        document.getElementById('info-console').textContent = details.nom_console; 
+        const dateSortieConsole = Number(details.date_sortie_console);
+        document.getElementById('info-console').textContent = Number.isInteger(dateSortieConsole)
+            ? `${details.nom_console} (${dateSortieConsole})`
+            : details.nom_console;
         document.getElementById('info-genre').textContent = details.nom_genre;
         document.getElementById('info-annee-sortie').textContent = details.annee_edition;
         document.getElementById('info-prix').textContent = details.prix_achat.toFixed(2);

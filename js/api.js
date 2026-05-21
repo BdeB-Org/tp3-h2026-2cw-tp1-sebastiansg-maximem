@@ -136,6 +136,7 @@ async function obtenirDetailsExemplaire(idExemplaire) {
         return {
             titre: jeu.titre,
             nom_console: consoleData.nom_console,
+            date_sortie_console: consoleData.date_sortie,
             nom_genre: genreData.nom_genre,
             annee_edition: jeu.annee_edition,
             prix_achat: exemplaire.prix_achat,

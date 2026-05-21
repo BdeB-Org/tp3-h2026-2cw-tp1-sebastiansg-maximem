@@ -46,7 +46,9 @@ function chargerFabricants() {
                     srcImage = 'Logo Nintendo.png';
                     largeur = '250px';
                     break;
-                default: srcImage = 'default.png'; 
+                default:
+                    srcImage = 'defaultv2.png';
+                    largeur = '150px';
             }
 
             const div = document.createElement('div');

@@ -4,14 +4,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>PixelVault - Sega</title>
+    <title>PixelVault - Jeux</title>
     <link rel="stylesheet" href="../css/commun.css" />
 </head>
 
 <body>
     <!--Header-->
     <header>
-        <!--Une div avec deux éléments distincts (img et nav). La div est là pour que le flex fonctionne. Le flex va voir qui'il y a deux éléments-->
         <div class="header-container">
             <a href="./index.html">
                 <img src="../images/PixelVault logo 2.1.png" alt="Logo PixelVault" width="150px">
@@ -21,11 +20,13 @@
                 <div class="rectangle2" style="margin-right: 15px;"><a href="./index.html">Acceuil</a></div>
                 <div class="rectangle1"><a href="./collection.html">Collection</a></div>
             </nav>
+        </div>
     </header>
 
-    <!--Produit(s) qu'on peut acheter-->
+    <!--Liste des jeux du fabricant sélectionné-->
     <main class="contenu_main">
-        <h1 class="h_1">Collection - Sega</h1>
+        <!-- Le titre est mis à jour dynamiquement par collection.js -->
+        <h1 class="h_1" id="titre-fabricant">Collection - Jeux</h1>
         <section>
             <h3>Choisissez le jeu de votre choix</h3>
             <div id="conteneur-jeux"></div>
@@ -43,7 +44,14 @@
     <script src="../js/api.js"></script>
     <script src="../js/collection.js"></script>
     <script>
-        afficherCollection('Sega');
+        // Lit le paramètre "fabricant" depuis l'URL et charge les jeux correspondants
+        const fabricant = new URLSearchParams(window.location.search).get('fabricant');
+
+        if (fabricant) {
+            afficherCollection(fabricant);
+        } else {
+            document.getElementById('conteneur-jeux').innerHTML = '<p>Aucun fabricant spécifié.</p>';
+        }
     </script>
 </body>
 
