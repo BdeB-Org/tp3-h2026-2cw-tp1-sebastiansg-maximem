@@ -1,8 +1,7 @@
 /*Styles généraux*/
 
 /*Header*/
-.header-container
-{
+.header-container {
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -12,28 +11,24 @@
 }
 
 /*Liens de navigation (header)*/
-.navigation
-{
+.navigation {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
     width: auto;
     margin-right: 2rem;
 }
 
-nav a
-{
+nav a {
     color: white;
     text-decoration: none;
 }
 
-nav a:hover
-{
+nav a:hover {
     text-decoration: underline;
 }
 
 /*Décoration des liens*/
-.rectangle1
-{
+.rectangle1 {
     display: flex;
     justify-content: center;
     align-items: center;
@@ -44,8 +39,7 @@ nav a:hover
     font-weight: bold;
 }
 
-.rectangle2
-{
+.rectangle2 {
     display: flex;
     justify-content: center;
     align-items: center;
@@ -55,8 +49,7 @@ nav a:hover
 }
 
 /*Body (contenu)*/
-body
-{
+body {
     background-color: #0A1020;
     color: white;
     margin-top: 0;
@@ -64,22 +57,19 @@ body
 }
 
 /*Titre(s) de pages*/
-.h_1
-{
+.h_1 {
     text-decoration: underline;
     margin-bottom: 20px;
 }
 
 /*Main*/
-.contenu_main
-{
+.contenu_main {
     margin-left: 2rem;
     margin-right: 2rem;
 }
 
 /*Bouton bleu pâle*/
-.btn
-{
+.btn {
     color: black;
     background: #6BA7FE;
     padding: 10px;
@@ -87,16 +77,17 @@ body
     border-radius: 10px;
     font-weight: bold;
     text-decoration: none;
+    cursor: pointer;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 1em;
 }
 
-.btn:hover
-{
+.btn:hover {
     text-decoration: underline;
 }
 
 /*Footer*/
-footer
-{
+footer {
     margin-top: 25px;
     border-top: 1px solid #9094A9;
     text-align: center;
@@ -107,8 +98,7 @@ footer
 /*Page index.html (Acceuil)*/
 
 /*Texte et images*/
-.texte-acceuil
-{
+.texte-acceuil {
     display: flex;
     align-items: center;
     gap: 10px;
@@ -119,27 +109,26 @@ footer
     background-color: #151A30;
 }
 
-.img-acceuil
-{
+.img-acceuil {
     border-radius: 2cqmin;
     margin-top: 20px;
 }
 
 /*Logo consoles*/
-.logo_consoles1
-{
+.logo_consoles1 {
     display: flex;
     gap: 50px;
     align-items: center;
 }
 
-.logo_consoles2
-{
+.logo_consoles2 {
     text-align: center;
 }
 
 
-/*Page collection*/
+/*Page collection.html*/
+
+/*Affichage de la collection*/
 .nav_collection {
     background-color: #151A30;
     width: fit-content;
@@ -163,10 +152,115 @@ footer
     align-items: center;
 }
 
+.nav_collection li b {
+    /*Le titre prend tout l'espace disponible, les boutons restent alignés à droite*/
+    flex: 1;
+}
+
+
+/*Page collection.html et collection-jeux.html*/
+
+/*Disposition liste + formulaire côte à côte*/
+.layout-liste-formulaire {
+    display: flex;
+    gap: 30px;
+    align-items: flex-start;
+    flex-wrap: wrap;
+    /*Passe en colonne si l'espace n'est pas suffisant*/
+}
+
+/*Formulaire d'ajout (fabricant ou jeu)*/
+.formulaire-ajout {
+    background-color: #151A30;
+    padding: 20px;
+    border-radius: 10px;
+    min-width: 240px;
+    max-width: 320px;
+}
+
+.formulaire-ajout h4 {
+    margin-top: 0;
+    margin-bottom: 16px;
+    font-size: 1em;
+    text-decoration: underline;
+}
+
+.formulaire-ajout label {
+    display: block;
+    margin-bottom: 4px;
+    font-size: 0.88em;
+    color: #cdd0d9;
+}
+
+.formulaire-ajout input,
+.formulaire-ajout select {
+    display: block;
+    width: 100%;
+    padding: 7px 10px;
+    margin-bottom: 12px;
+    border-radius: 6px;
+    border: 1px solid #2e3552;
+    background-color: #0A1020;
+    color: white;
+    font-size: 0.9em;
+    box-sizing: border-box;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+.formulaire-ajout input::placeholder {
+    color: #555e7a;
+}
+
+.formulaire-ajout input:focus,
+.formulaire-ajout select:focus {
+    outline: 2px solid #6BA7FE;
+    outline-offset: 0;
+}
+
+
+.formulaire-ajout .btn {
+    /*Bouton Ajouter occupe toute la largeur du formulaire*/
+    display: block;
+    width: 100%;
+    text-align: center;
+    box-sizing: border-box;
+}
+
+
+/*Messages de retour (succès / erreur)*/
+.message-retour {
+    margin-top: 10px;
+    margin-bottom: 0;
+    font-size: 0.85em;
+    min-height: 1.2em;
+}
+
+.message-succes {
+    color: #6ee67c;
+}
+
+.message-erreur {
+    color: #f47c7c;
+}
+
+
+/*Bouton Supprimer (rouge)*/
+.btn-supprimer {
+    background: #e05555;
+    color: white;
+    margin-left: 10px;
+}
+
+.btn-supprimer:hover {
+    background: #c03c3c;
+    text-decoration: underline;
+}
+
+
+/*Page collection-exemplaire.html*/
 
 /*Affichage de la description d'un produit*/
-.exemplaire
-{
+.exemplaire {
     display: flex;
     align-items: center;
     background-color: #151A30;
@@ -176,51 +270,4 @@ footer
     margin-bottom: 50px;
     border-radius: 10px;
     gap: 20px;
-}
-
-/*Pages catégories et produits*/
-.boite1
-{
-    display: flex;
-    gap: 20px;
-    align-items: center;
-    margin-bottom: 10px;
-}
-
-/*Logo + nom au-dessus de l'encadré du choix de produits*/
-.nom_boite1
-{
-    font-weight: bold;
-}
-
-/*Affichage choix produits*/
-.contenu_boite1
-{
-    display: flex;
-    gap: 30px;
-    background-color: #151A30;
-    margin-bottom: 30px;
-    padding: 30px;
-    padding-bottom: 45px;
-    border-radius: 10px;
-    align-items: end;
-}
-
-/*Représente un produit (image + bouton) dans choix produits*/
-.produits
-{
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-}
-
-/*Description produits*/
-.texte_produits
-{
-    display: flex;
-    /*align-items: center;*/
-    background-color: #151A30;
-    padding: 20px;
-    /*padding-top: 0px;*/
-    border-radius: 10px;
 }

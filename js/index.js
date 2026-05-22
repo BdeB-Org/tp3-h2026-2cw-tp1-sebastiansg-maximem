@@ -2,12 +2,18 @@ document.addEventListener('DOMContentLoaded', () => {
     chargerFabricants();
 });
 
+/**
+ * Charge et affiche les fabricants de consoles.
+ * Récupère les données des fabricants depuis la base de données via getFabricants(), les trie selon un ordre personnalisé (Sony, Atari, Sega, Nintendo), puis les affiche dans le conteneur avec leurs logos et noms respectifs.
+ * Chaque fabricant a un logo et une largeur d'affichage spécifiques.
+ * En cas d'erreur, affiche un message d'erreur dans le conteneur.
+ */
 function chargerFabricants() {
     const conteneur = document.querySelector('.logo_consoles1');
     conteneur.innerHTML = 'Chargement des fabricants...';
 
     getFabricants().then(fabricants => {
-        conteneur.innerHTML = ''; 
+        conteneur.innerHTML = '';
 
         // 1. On définit l'ordre d'affichage désiré (en minuscules)
         const ordreDesire = {
@@ -15,7 +21,7 @@ function chargerFabricants() {
             'atari': 2,
             'sega': 3,
             'nintendo': 4
-        };
+        }; // Les fabricants non listés auront une valeur de 99 (affichés à la fin)
 
         // 2. On trie le tableau reçu de la BD en fonction de notre ordre défini
         fabricants.sort((a, b) => {
@@ -27,13 +33,13 @@ function chargerFabricants() {
         // 3. On boucle sur le tableau maintenant trié
         fabricants.forEach(fab => {
             let srcImage = '';
-            let largeur = '200px'; 
+            let largeur = '200px';
             let nomAffiche = fab.nom_fabricant; // Par défaut, on garde le nom de la BD
 
-            switch(fab.nom_fabricant.toLowerCase()) {
+            switch (fab.nom_fabricant.toLowerCase()) {
                 case 'sony':
                     srcImage = 'Logo Playstation.png';
-                    nomAffiche = 'Sony (PlayStation)'; // On remplace "Sony" par "PlayStation" pour l'affichage
+                    nomAffiche = 'Sony (PlayStation)'; // On remplace "Sony" par "Sony (PlayStation)" pour l'affichage
                     break;
                 case 'atari':
                     srcImage = 'Logo Atari.png';
@@ -57,7 +63,7 @@ function chargerFabricants() {
             // On utilise nomAffiche pour le texte
             div.innerHTML = `
                 <img src="../images/${srcImage}" alt="Logo ${nomAffiche}" width="${largeur}">
-                <p class="ptexte">${nomAffiche}</p>
+                <p>${nomAffiche}</p>
             `;
 
             conteneur.appendChild(div);

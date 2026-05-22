@@ -12,7 +12,6 @@
 <body>
     <!--Header-->
     <header>
-        <!--Une div avec deux éléments distincts (img et nav). La div est là pour que le flex fonctionne. Le flex va voir qui'il y a deux éléments-->
         <div class="header-container">
             <a href="./index.html">
                 <img src="../images/PixelVault logo 2.1.png" alt="Logo PixelVault" width="150px" />
@@ -29,10 +28,23 @@
 
     <main class="contenu_main">
         <h1 class="h_1">Collection - Fabricant</h1>
-        <section>
-            <h3>Choisissez votre fabricant</h3>
+        <h3>Choisissez votre fabricant</h3>
+        <!-- Disposition côte à côte : liste à gauche, formulaire à droite -->
+        <div class="layout-liste-formulaire">
             <div id="fabricants-container"></div>
-        </section>
+
+            <!-- Formulaire d'ajout d'un fabricant -->
+            <div class="formulaire-ajout">
+                <h4>Ajouter un fabricant</h4>
+
+                <label for="input-nom-fabricant">Nom du fabricant</label>
+                <input type="text" id="input-nom-fabricant" placeholder="ex. Microsoft" />
+
+                <button class="btn" id="btn-ajouter-fabricant">Ajouter</button>
+
+                <p id="message-fabricant" class="message-retour"></p>
+            </div>
+        </div>
     </main>
 
     <nav style="margin-left: 2rem;">

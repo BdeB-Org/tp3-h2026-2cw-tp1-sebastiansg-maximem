@@ -1,5 +1,3 @@
-// js/api.js
-
 const BASE_URL = 'http://localhost:8080/ords/sitetp3';
 
 // Lire toutes les données d'une table
@@ -33,7 +31,7 @@ function update(table, id, data) {
     }).then(response => response.json());
 }
 
-// DELETE - Supprimer un enregistrement (DELETE)
+// DELETE - Supprimer un enregistrement
 function remove(table, id) {
     return fetch(`${BASE_URL}/${table}/${id}`, {
         method: 'DELETE'
@@ -42,22 +40,20 @@ function remove(table, id) {
 
 // GET — Lire tous les enregistrements de la table Fabricant
 function getFabricants() {
-    return fetch(`${BASE_URL}/fabricant/`)
-        .then(response => response.json()) // Convertit la réponse en JS
-        .then(data => data.items); // Retourne data.items comme exigé par ORDS
+    return getAll('fabricant');
 }
 
 // Obtenir les jeux d'un fabricant spécifique
 async function getJeuxParFabricant(nomFabricant) {
     try {
         // 1. Récupérer tous les fabricants
-        const fabricants = await getAll('fabricant'); 
-        
+        const fabricants = await getAll('fabricant');
+
         // 2. Trouver l'ID du fabricant recherché (insensible à la casse)
-        const fabricantTrouve = fabricants.find(f => 
+        const fabricantTrouve = fabricants.find(f =>
             f.nom_fabricant.toLowerCase() === nomFabricant.toLowerCase()
         );
-        
+
         if (!fabricantTrouve) {
             console.error(`Fabricant "${nomFabricant}" introuvable.`);
             return [];
@@ -65,7 +61,7 @@ async function getJeuxParFabricant(nomFabricant) {
 
         // 3. Récupérer toutes les consoles
         const consoles = await getAll('console');
-        
+
         // 4. Isoler les IDs des consoles qui appartiennent à ce fabricant
         const idConsoles = consoles
             .filter(c => c.id_fabricant === fabricantTrouve.id_fabricant)
@@ -77,7 +73,7 @@ async function getJeuxParFabricant(nomFabricant) {
 
         // 5. Récupérer tous les jeux
         const jeux = await getAll('jeu');
-        
+
         // 6. Filtrer pour ne garder que les jeux associés aux consoles trouvées
         const jeuxDuFabricant = jeux.filter(j => idConsoles.includes(j.id_console));
 
@@ -89,49 +85,25 @@ async function getJeuxParFabricant(nomFabricant) {
     }
 }
 
-// ── Raccourcis optionnels ──────────────────────────────────────────────────
-function getJeuxSony() {
-    return getJeuxParFabricant('Sony');
-}
-
-function getJeuxAtari() {
-    return getJeuxParFabricant('Atari');
-}
-
-function getJeuxSega() {
-    return getJeuxParFabricant('Sega');
-}
-
-function getJeuxNintendo() {
-    return getJeuxParFabricant('Nintendo');
-}
-
-
 /**
- * Récupère les détails d'un jeu spécifique via une requête GET
+ * Récupère les détails complets d'un exemplaire via les fonctions de base getById()
+ * Utilise getById() au lieu de fetch() direct
  */
 async function obtenirDetailsExemplaire(idExemplaire) {
     try {
-        const reponseExemplaire = await fetch(`${BASE_URL}/exemplaire/${idExemplaire}`);
-        if (!reponseExemplaire.ok) throw new Error("Erreur lors de la récupération de l'exemplaire");
-        const exemplaire = await reponseExemplaire.json();
+        const exemplaire = await getById('exemplaire', idExemplaire);
+        if (!exemplaire) throw new Error("Exemplaire introuvable");
 
-        const reponseJeu = await fetch(`${BASE_URL}/jeu/${exemplaire.id_jeu}`);
-        if (!reponseJeu.ok) throw new Error("Erreur lors de la récupération du jeu");
-        const jeu = await reponseJeu.json();
-
-        const [reponseConsole, reponseGenre] = await Promise.all([
-            fetch(`${BASE_URL}/console/${jeu.id_console}`),
-            fetch(`${BASE_URL}/genre/${jeu.id_genre}`)
-        ]);
-
-        if (!reponseConsole.ok) throw new Error("Erreur lors de la récupération de la console");
-        if (!reponseGenre.ok) throw new Error("Erreur lors de la récupération du genre");
+        const jeu = await getById('jeu', exemplaire.id_jeu);
+        if (!jeu) throw new Error("Jeu introuvable");
 
         const [consoleData, genreData] = await Promise.all([
-            reponseConsole.json(),
-            reponseGenre.json()
+            getById('console', jeu.id_console),
+            getById('genre', jeu.id_genre)
         ]);
+
+        if (!consoleData) throw new Error("Console introuvable");
+        if (!genreData) throw new Error("Genre introuvable");
 
         return {
             titre: jeu.titre,
@@ -149,22 +121,12 @@ async function obtenirDetailsExemplaire(idExemplaire) {
 }
 
 /**
- * Met à jour le stock d'un exemplaire spécifique via une requête PUT
+ * Met à jour le stock d'un exemplaire via la fonction de base update()
+ * Utilise update() au lieu de fetch() direct
  */
 async function mettreAJourStock(idExemplaire, nouveauStock) {
     try {
-        const reponse = await fetch(`${BASE_URL}/exemplaire/${idExemplaire}`, {
-            method: 'PUT',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({
-                stock: nouveauStock
-            })
-        });
-
-        if (!reponse.ok) throw new Error("Erreur lors de la mise à jour du stock");
-        
+        await update('exemplaire', idExemplaire, { stock: nouveauStock });
         return true; // Succès
     } catch (erreur) {
         console.error("Erreur API (PUT) :", erreur);

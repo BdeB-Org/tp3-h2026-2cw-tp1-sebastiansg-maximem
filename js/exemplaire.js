@@ -1,5 +1,3 @@
-// Fichier : exemplaire.js
-
 // L'ID de l'exemplaire est transmis dans l'URL depuis la page collection
 let idExemplaireActuel = null;
 let stockActuel = 0;
@@ -27,7 +25,7 @@ async function afficherDetails() {
 
     // Appel à la fonction de api.js
     const details = await obtenirDetailsExemplaire(idExemplaireActuel);
-    
+
     if (details) {
         // Injection des données dans les balises <span> vides
         document.getElementById('info-titre').textContent = details.titre;
@@ -38,11 +36,11 @@ async function afficherDetails() {
         document.getElementById('info-genre').textContent = details.nom_genre;
         document.getElementById('info-annee-sortie').textContent = details.annee_edition;
         document.getElementById('info-prix').textContent = details.prix_achat.toFixed(2);
-        
+
         // Initialisation du stock
         stockActuel = details.stock;
         document.getElementById('info-stock').textContent = stockActuel;
-        
+
         // Vérification initiale du bouton Acheter
         verifierBoutonAcheter();
     } else {
@@ -66,7 +64,7 @@ function verifierBoutonAcheter() {
     }
 }
 
-// --- ÉCOUTEURS D'ÉVÉNEMENTS ---
+// ÉCOUTEURS D'ÉVÉNEMENTS
 
 document.addEventListener('DOMContentLoaded', () => {
     idExemplaireActuel = lireIdExemplaireDepuisURL();
@@ -81,7 +79,7 @@ document.addEventListener('DOMContentLoaded', () => {
             const nouveauStock = stockActuel - 1;
             // On attend la confirmation de api.js avant de changer l'affichage
             const succes = await mettreAJourStock(idExemplaireActuel, nouveauStock);
-            
+
             if (succes) {
                 stockActuel = nouveauStock;
                 document.getElementById('info-stock').textContent = stockActuel;
@@ -97,7 +95,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const nouveauStock = stockActuel + 1;
         // On attend la confirmation de api.js avant de changer l'affichage
         const succes = await mettreAJourStock(idExemplaireActuel, nouveauStock);
-        
+
         if (succes) {
             stockActuel = nouveauStock;
             document.getElementById('info-stock').textContent = stockActuel;

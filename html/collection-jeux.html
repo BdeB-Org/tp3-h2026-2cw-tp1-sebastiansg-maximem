@@ -5,6 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>PixelVault - Jeux</title>
+    <link rel="icon" type="image/png" href="../images/PixelVault logo (icone).png">
     <link rel="stylesheet" href="../css/commun.css" />
 </head>
 
@@ -29,7 +30,41 @@
         <h1 class="h_1" id="titre-fabricant">Collection - Jeux</h1>
         <section>
             <h3>Choisissez le jeu de votre choix</h3>
-            <div id="conteneur-jeux"></div>
+            <!-- Disposition côte à côte : liste à gauche, formulaire à droite -->
+            <div class="layout-liste-formulaire">
+                <div id="jeux-container"></div>
+
+                <!-- Formulaire d'ajout d'un jeu -->
+                <div class="formulaire-ajout">
+                    <h4>Ajouter un jeu</h4>
+
+                    <label for="input-titre-jeu">Titre du jeu</label>
+                    <input type="text" id="input-titre-jeu" placeholder="ex. Super Mario Bros" />
+
+                    <label for="input-annee-jeu">Année d'édition</label>
+                    <input type="number" id="input-annee-jeu" placeholder="ex. 1996" min="1970" max="2026" />
+
+                    <label for="select-console-jeu">Console</label>
+                    <select id="select-console-jeu">
+                        <option value="">-- Choisir une console --</option>
+                    </select>
+
+                    <label for="select-genre-jeu">Genre</label>
+                    <select id="select-genre-jeu">
+                        <option value="">-- Choisir un genre --</option>
+                    </select>
+
+                    <label for="input-stock-jeu">Stock initial</label>
+                    <input type="number" id="input-stock-jeu" placeholder="ex. 5" min="0" />
+
+                    <label for="input-prix-jeu">Prix d'achat ($)</label>
+                    <input type="number" id="input-prix-jeu" placeholder="ex. 29.99" min="0" step="0.01" />
+
+                    <button class="btn" id="btn-ajouter-jeu">Ajouter</button>
+
+                    <p id="message-jeu" class="message-retour"></p>
+                </div>
+            </div>
         </section>
     </main>
 
@@ -49,8 +84,9 @@
 
         if (fabricant) {
             afficherCollection(fabricant);
+            chargerFormulairJeux(fabricant); // Prépare les listes déroulantes du formulaire
         } else {
-            document.getElementById('conteneur-jeux').innerHTML = '<p>Aucun fabricant spécifié.</p>';
+            document.getElementById('jeux-container').innerHTML = '<p>Aucun fabricant spécifié.</p>';
         }
     </script>
 </body>

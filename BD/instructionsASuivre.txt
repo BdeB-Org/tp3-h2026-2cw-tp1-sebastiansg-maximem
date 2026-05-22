@@ -1,0 +1,10 @@
+1. Se connecter en tant que vmsys (administrateur) dans SQL Developer et exécuter ces commandes (copier et coller)
+GRANT CONNECT,RESOURCE,UNLIMITED TABLESPACE TO sitetp3 IDENTIFIED BY oracle;
+ALTER USER sitetp3 DEFAULT TABLESPACE USERS;
+ALTER USER sitetp3 TEMPORARY TABLESPACE TEMP;
+
+2. Dans SQL Developer, créer un nouvel utilisateur en se fiant à l'image "sqldev-creationNouvelUtilisateur.png" (faite un test pour s'assurer que le nouvel utilisateur sitetp3 peut se connecter à la base de données)
+
+3. Se connecter en tant que sitetp3 dans SQL Developer et exécuter toutes les commandes du fichier "scripts.sql" (copier et coller tout le code du fichier)
+
+4. Se connecter en tant que sys (administrateur) dans SQL Developer et exécuter toutes les commandes du fichier "ords.sql" (copier et coller tout le code du fichier)
